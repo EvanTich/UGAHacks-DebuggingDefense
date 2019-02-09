@@ -4,24 +4,27 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import ugahacks.bug.defense.field.GameField;
 
 public class TowerDefenseGame extends Application {
-
+    Stage mainStage;
     @Override
     public void start(Stage primaryStage) throws Exception {
-     Scene gameScene = createStart();
-     primaryStage.setScene(gameScene);
-     primaryStage.show();
+     mainStage = primaryStage;
+     mainStage.setScene(createStart());
+     mainStage.show();
 
     }
 
-    Scene createStart() {
+    private Scene createStart() {
         Group errorField = new Group();
         errorField.minWidth(640);
         errorField.minHeight(480);
@@ -36,6 +39,7 @@ public class TowerDefenseGame extends Application {
             errorField.getChildren().add(errorBox);
         }
         Button startGame = new Button("Debug >0<");
+        startGame.setOnAction(e -> mainStage.setScene(createPlay()));
         startGame.setLayoutX(290);
         startGame.setLayoutY(400);
         errorField.getChildren().add(startGame);
@@ -43,9 +47,16 @@ public class TowerDefenseGame extends Application {
         return startScene;
     }
 
-    Scene createPlay() {
-        BorderPane gamePane = new BorderPane()
-        
+    private Scene createPlay() {
+        BorderPane gamePane = new BorderPane();
+        GameField TwrDfncGame = new GameField();
+        gamePane.setCenter(TwrDfncGame);
+        Button hardwareShop = new Button("Hardware");
+        Button softwareShop = new Button("Software");
+        HBox shopTabs = new HBox();
+        VBox shop = new VBox(shopTabs);
+        Scene playing = new Scene(gamePane);
+        return playing;
     }
     public static void main(String[] args) {
         launch(args);
