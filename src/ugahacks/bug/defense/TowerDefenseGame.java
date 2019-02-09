@@ -59,46 +59,9 @@ public class TowerDefenseGame extends Application {
         GameField TwrDfncGame = new GameField();
         gamePane.setCenter(TwrDfncGame);
 
-        VBox shop = new VBox();
+        Shop shop = new Shop(mainStage);
         gamePane.setRight(shop);
 
-        //ShopTab
-        Button hardwareShopBut = new Button("Hardware");
-        Button softwareShopBut = new Button("Software");
-        HBox shopTabs = new HBox(softwareShopBut, hardwareShopBut);
-        shop.getChildren().add(shopTabs);
-
-        //SoftwareShop
-        Button tower1 = new Button("Debugger");
-        Button tower2 = new Button("D38ugg3r");
-        Button tower3 = new Button("DEBUGGER");
-        Label tower1Mem = new Label("Memory: 4");
-        Label tower2Mem = new Label("Memory: 8");
-        Label tower3Mem = new Label("Memory: 16");
-        HBox twr1 = new HBox(tower1, tower1Mem);
-        HBox twr2 = new HBox(tower2, tower2Mem);
-        HBox twr3 = new HBox(tower3, tower3Mem);
-        VBox sftwreShp = new VBox(twr1, twr2, twr3);
-        sftwreShp.setSpacing(2.5);
-        softwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
-        shop.getChildren().add(sftwreShp);
-        mainStage.sizeToScene();});
-
-        //HardwareShop
-        Button upGrade1 = new Button("RAM");
-        Button upGrade2 = new Button("CPU");
-        Button upGrade3 = new Button("GPU");
-        Label upGrade1Cost = new Label("Cost: $1000");
-        Label upGrade2Cost = new Label("Cost: $2000");
-        Label upGrade3Cost = new Label("Cost: $3000");
-        HBox up1 = new HBox(upGrade1, upGrade1Cost);
-        HBox up2 = new HBox(upGrade2, upGrade2Cost);
-        HBox up3 = new HBox(upGrade3, upGrade3Cost);
-        VBox hrdwreShp = new VBox(up1, up2, up3);
-        hrdwreShp.setSpacing(2.5);
-        hardwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
-            shop.getChildren().add(hrdwreShp);
-            mainStage.sizeToScene();});
 
         //BottomDisplay
         Button quit = new Button("ESC");

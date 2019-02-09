@@ -10,26 +10,29 @@ import java.util.List;
 public class Debugger {
 
     // no changing allowed (in code I mean, change the variables all you want here)
-    public static final Debugger JDB = new Debugger(null, 1, 25, 25);
-    public static final Debugger GDB = new Debugger(null, .75, 35, 30);
-    public static final Debugger ULT = new Debugger(null, .5, 50, 40); // ultra debugger
+    public static final Debugger JDB = new Debugger(null, 1, 25, 25, '0');
+    public static final Debugger GDB = new Debugger(null, .75, 35, 30, '1');
+    public static final Debugger ULT = new Debugger(null, .5, 50, 40, '2'); // ultra debugger
 
     Pos pos;
 
     // shooting*
-    double speed, // lower = faster
+    public double speed, // lower = faster
            range, // bigger = farther
            damage; // bigger = better
+
+    public char id;
 
     private double shootTimer;
     private Pos shootTo;
     private double drawShotTimer;
 
-    public Debugger(Pos pos, double speed, double range, double damage) {
+    public Debugger(Pos pos, double speed, double range, double damage, char id) {
         this.pos = pos;
         this.speed = speed;
         this.range = range;
         this.damage = damage;
+        this.id = id;
     }
 
     public void update(List<Bug> bugs, double dt) {
@@ -84,11 +87,11 @@ public class Debugger {
         switch(level) {
             default:
             case 0:
-                return new Debugger(pos, JDB.speed, JDB.range, JDB.damage);
+                return new Debugger(pos, JDB.speed, JDB.range, JDB.damage, JDB.id);
             case 1:
-                return new Debugger(pos, GDB.speed, GDB.range, GDB.damage);
+                return new Debugger(pos, GDB.speed, GDB.range, GDB.damage, GDB.id);
             case 2:
-                return new Debugger(pos, ULT.speed, ULT.range, ULT.damage);
+                return new Debugger(pos, ULT.speed, ULT.range, ULT.damage, ULT.id);
         }
     }
 }
