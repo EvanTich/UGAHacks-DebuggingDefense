@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 import ugahacks.bug.defense.field.GameField;
 
 public class TowerDefenseGame extends Application {
-    Stage mainStage;
+
+    private Stage mainStage;
+    private int memory;
+    private int money;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
      mainStage = primaryStage;
@@ -75,17 +79,37 @@ public class TowerDefenseGame extends Application {
         HBox twr2 = new HBox(tower2, tower2Mem);
         HBox twr3 = new HBox(tower3, tower3Mem);
         VBox sftwreShp = new VBox(twr1, twr2, twr3);
+        sftwreShp.setSpacing(2.5);
         softwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
         shop.getChildren().add(sftwreShp);
         mainStage.sizeToScene();});
 
         //HardwareShop
-        Button upGrade1 = new Button("");
-        Button upGrade2 = new Button("");
-        Button upGrade3 = new Button("");
+        Button upGrade1 = new Button("RAM");
+        Button upGrade2 = new Button("CPU");
+        Button upGrade3 = new Button("GPU");
         Label upGrade1Cost = new Label("Cost: $1000");
         Label upGrade2Cost = new Label("Cost: $2000");
         Label upGrade3Cost = new Label("Cost: $3000");
+        HBox up1 = new HBox(upGrade1, upGrade1Cost);
+        HBox up2 = new HBox(upGrade2, upGrade2Cost);
+        HBox up3 = new HBox(upGrade3, upGrade3Cost);
+        VBox hrdwreShp = new VBox(up1, up2, up3);
+        hrdwreShp.setSpacing(2.5);
+        hardwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
+            shop.getChildren().add(hrdwreShp);
+            mainStage.sizeToScene();});
+
+        //BottomDisplay
+        Button quit = new Button("ESC");
+        quit.setOnAction(e -> mainStage.setScene(createStart()));
+        Rectangle dispImg = new Rectangle(320, 120, Color.GREEN);
+        Label memoryLbl = new Label("Memory" + memory);
+        Label moneyLbl = new Label("Money" + money);
+        VBox resources = new VBox(memoryLbl, moneyLbl);
+        resources.setSpacing(2);
+        HBox BotDisp = new HBox(quit, dispImg, resources);
+        gamePane.setBottom(BotDisp);
 
         return playing;
     }
