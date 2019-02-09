@@ -18,8 +18,8 @@ import ugahacks.bug.defense.field.GameField;
 public class TowerDefenseGame extends Application {
 
     private Stage mainStage;
-    private int memory;
-    private int money;
+    public static int memory = 1000;
+    public static int money = 10000000;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -61,7 +61,6 @@ public class TowerDefenseGame extends Application {
 
         Shop shop = new Shop(mainStage);
         gamePane.setRight(shop);
-
 
         //BottomDisplay
         Button quit = new Button("ESC");

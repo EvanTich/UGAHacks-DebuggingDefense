@@ -12,12 +12,21 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 import ugahacks.bug.defense.Pos;
+import ugahacks.bug.defense.TowerDefenseGame;
 
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameField extends Canvas {
+
+    public static final double WIDTH = 640 / 2f;
+    public static final double HEIGHT = 480 / 2f;
+
+    public static final Path mainPath = Path.createPath(
+            new Pos(0, HEIGHT / 2), new Pos(WIDTH / 10, HEIGHT / 2),
+            new Pos(WIDTH / 8, HEIGHT / 4), new Pos(WIDTH / 7, HEIGHT * 4 / 5)
+    );
 
     private AnimationTimer gameLoop;
     private BooleanProperty paused;
@@ -26,17 +35,19 @@ public class GameField extends Canvas {
 
     private List<Debugger> debuggers;
     private List<Bug> bugs;
-    private Path mainPath;
     private Line2D[] mainPathLines;
 
     public boolean buyMode; // if true then can place a tower
     public int towerToPlace;
-    private Circle rangeCircle;
+
+    private boolean drawCircle;
+    private Pos circlePos;
+    private int circleRange;
 
     public Debugger selectedTower;
 
-    public GameField(Path mainPath, Pane root) {
-        super(640 / 2f, 480 / 2f);
+    public GameField() {
+        super(WIDTH, HEIGHT);
         paused = new SimpleBooleanProperty(true);
         lastNanoTime = System.nanoTime();
         gameLoop = new AnimationTimer() {
@@ -57,14 +68,11 @@ public class GameField extends Canvas {
         });
         buyMode = false;
         towerToPlace = -1;
-        rangeCircle = new Circle(10, Color.TRANSPARENT);
 
         setOnMouseMoved(this::onMouseOver);
         setOnMouseReleased(this::onClick);
 
-        this.mainPath = mainPath;
         mainPathLines = Path.toLine2DArray(mainPath);
-        root.getChildren().add(rangeCircle);
         debuggers = new ArrayList<>();
         bugs = new ArrayList<>();
     }
@@ -94,6 +102,12 @@ public class GameField extends Canvas {
 
         debuggers.forEach(d -> d.draw(g));
         bugs.forEach(b -> b.draw(g));
+
+        if(drawCircle) {
+            // draw circle maaan
+            g.setStroke(Color.GRAY);
+            g.strokeOval(circlePos.x, circlePos.y, circleRange, circleRange);
+        }
     }
 
     /**
@@ -114,9 +128,9 @@ public class GameField extends Canvas {
     public void onMouseOver(MouseEvent e) {
         // if in debugger buy mode, show range of tower
         if(buyMode && towerToPlace != -1) {
-            rangeCircle.setFill(Color.color(1, 1, 1, .5));
-            rangeCircle.setCenterX((int)e.getSceneX()); // fixme? may have to be screen or scene x
-            rangeCircle.setCenterY((int)e.getSceneY());
+            // draw circle
+            drawCircle = true;
+            circlePos = new Pos(e.getX(), e.getY());
 
             double range = Debugger.JDB.range;
             if(towerToPlace == 1) {
@@ -124,7 +138,10 @@ public class GameField extends Canvas {
             } else if(towerToPlace == 2) {
                 range = Debugger.ULT.range;
             }
-            rangeCircle.setRadius(range);
+            circleRange = (int) range;
+
+        } else {
+            drawCircle = false;
         }
     }
 
@@ -132,8 +149,8 @@ public class GameField extends Canvas {
         // if in debugger buy mode, put on board
         Pos pos = new Pos(e.getX(), e.getY());
         if(buyMode && towerToPlace != -1) {
-            // TODO check money too
-            if(debuggers.stream().noneMatch(d -> d.pos.distance(pos) <= 5)) {
+            int cost = 4 * (int)Math.pow(2, towerToPlace); // 4, 8, or 16
+            if(TowerDefenseGame.memory - cost >= 0 && debuggers.stream().noneMatch(d -> d.pos.distance(pos) <= 5)) {
                 boolean canPlace = true;
                 for(Line2D line : mainPathLines)
                     if(line.intersects(pos.x - 4, pos.y - 4, 8, 8))
