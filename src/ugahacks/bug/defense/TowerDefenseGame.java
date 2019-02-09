@@ -20,8 +20,10 @@ import ugahacks.bug.defense.field.GameField;
 public class TowerDefenseGame extends Application {
 
     private Stage mainStage;
+
     public static IntegerProperty memory = new SimpleIntegerProperty(1000);
     public static IntegerProperty money = new SimpleIntegerProperty(10000000);
+    public static IntegerProperty health = new SimpleIntegerProperty(100);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -72,14 +74,22 @@ public class TowerDefenseGame extends Application {
         memoryLbl.textProperty().bind(memory.asString("Memory: %d"));
         Label moneyLbl = new Label("Money:  " + money);
         moneyLbl.textProperty().bind(money.asString("Money: %d"));
-        VBox resources = new VBox(memoryLbl, moneyLbl);
-        resources.setSpacing(2);
+        Label healthLbl = new Label("Health: " + health);
+        healthLbl.textProperty().bind(health.asString("Health: %d"));
+        Button nextWave = new Button("Start");
+        nextWave.setOnAction(e -> {
+           nextWave.setText("Debugging");
+           nextWave.setOnAction(null);
+        });
+        VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
+        resources.setSpacing(5);
         HBox BotDisp = new HBox(quit, dispImg, resources);
         gamePane.setBottom(BotDisp);
         game.play();
 
         return playing;
     }
+
     public static void main(String[] args) {
         launch(args);
     }
