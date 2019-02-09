@@ -43,6 +43,10 @@ public class TowerDefenseGame extends Application {
         return startScene;
     }
 
+    Scene createPlay() {
+        BorderPane gamePane = new BorderPane()
+        
+    }
     public static void main(String[] args) {
         launch(args);
     }
