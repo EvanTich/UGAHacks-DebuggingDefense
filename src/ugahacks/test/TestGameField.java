@@ -15,13 +15,15 @@ public class TestGameField extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FlowPane root = new FlowPane();
-        GameField game = new GameField(Path.createPath(new Pos(0, 0), new Pos(100, 20), new Pos(50, 50), new Pos(200, 145)), root);
+        GameField game = new GameField();
         root.getChildren().addAll(new Button("SDAWDADS"), game);
         Scene scene = new Scene(root);
 
         game.play();
         game.buyMode = true;
         game.towerToPlace = 0;
+
+
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("FIELD TEST!");

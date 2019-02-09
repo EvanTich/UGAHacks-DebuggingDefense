@@ -18,8 +18,8 @@ import ugahacks.bug.defense.field.GameField;
 public class TowerDefenseGame extends Application {
 
     private Stage mainStage;
-    private int memory;
-    private int money;
+    public static int memory = 1000;
+    public static int money = 10000000;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -80,9 +80,13 @@ public class TowerDefenseGame extends Application {
         HBox twr3 = new HBox(tower3, tower3Mem);
         VBox sftwreShp = new VBox(twr1, twr2, twr3);
         sftwreShp.setSpacing(2.5);
-        softwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
-        shop.getChildren().add(sftwreShp);
-        mainStage.sizeToScene();});
+        softwareShopBut.setOnAction(e -> {
+            if(shop.getChildren().size() > 1) {
+                shop.getChildren().remove(1);
+            }
+            shop.getChildren().add(sftwreShp);
+            mainStage.sizeToScene();
+        });
 
         //HardwareShop
         Button upGrade1 = new Button("RAM");
@@ -96,9 +100,13 @@ public class TowerDefenseGame extends Application {
         HBox up3 = new HBox(upGrade3, upGrade3Cost);
         VBox hrdwreShp = new VBox(up1, up2, up3);
         hrdwreShp.setSpacing(2.5);
-        hardwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
+        hardwareShopBut.setOnAction(e -> {
+            if(shop.getChildren().size() > 1) {
+                shop.getChildren().remove(1);
+            }
             shop.getChildren().add(hrdwreShp);
-            mainStage.sizeToScene();});
+            mainStage.sizeToScene();
+        });
 
         //BottomDisplay
         Button quit = new Button("ESC");
