@@ -24,7 +24,7 @@ public class Path {
 
         bug.pos.y += slope() * speed * dt * dx;
 
-        if(false) // if it is past the end or at the end, change to the next path
+        if((Math.abs(bug.pos.x - end.x)<.5) && (Math.abs(bug.pos.x - end.x)<.5)) // if it is past the end or at the end, change to the next path
             bug.onPath = nextPath;
 
     }
