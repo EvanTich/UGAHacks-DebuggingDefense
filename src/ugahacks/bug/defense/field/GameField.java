@@ -23,6 +23,7 @@ public class GameField extends Canvas {
     private Path mainPath;
 
     public GameField() {
+        super(640 / 2f, 480 / 2f);
         paused = new SimpleBooleanProperty(true);
         lastNanoTime = System.nanoTime();
         gameLoop = new AnimationTimer() {
