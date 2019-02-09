@@ -5,6 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class GameField extends Canvas {
      * Initializes the specific game.
      */
     public void init() {
+        debuggers = new ArrayList<>();
         bugs = new ArrayList<>();
         mainPath = new Path(new Pos(0, 0), new Pos(0, 0));
     }
@@ -64,7 +66,9 @@ public class GameField extends Canvas {
      * @param g the GraphicsContext to be drawn on
      */
     public void draw(GraphicsContext g) {
-
+        g.setFill(Color.BLACK);
+        debuggers.forEach(d -> d.draw(g));
+        bugs.forEach(b -> b.draw(g));
     }
 
     /**
@@ -74,6 +78,13 @@ public class GameField extends Canvas {
      */
     public void update(double dt) {
         debuggers.forEach(d -> d.update(bugs, dt));
-        bugs.forEach(b -> b.onPath.move(b, 1, dt));
+        for(int i = 0; i < bugs.size(); i++) {
+            if(bugs.get(i).hp <= 0)
+                bugs.remove(i--);
+
+            bugs.get(i).move(1, dt);
+        }
+
+
     }
 }

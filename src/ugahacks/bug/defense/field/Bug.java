@@ -1,5 +1,6 @@
 package ugahacks.bug.defense.field;
 
+import javafx.scene.canvas.GraphicsContext;
 import ugahacks.bug.defense.Pos;
 
 public class Bug {
@@ -18,5 +19,9 @@ public class Bug {
     public void move(double speed, double dt) {
         if(onPath != null)
             onPath.move(this, speed, dt);
+    }
+
+    public void draw(GraphicsContext g) {
+        g.fillRect(pos.x - 3 / 2f, pos.y - 3 / 2f, 3, 3);
     }
 }
