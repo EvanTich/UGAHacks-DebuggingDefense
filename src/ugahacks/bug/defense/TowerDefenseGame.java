@@ -23,10 +23,10 @@ public class TowerDefenseGame extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-     mainStage = primaryStage;
-     mainStage.setScene(createStart());
-     mainStage.show();
-
+        mainStage = primaryStage;
+        mainStage.setScene(createStart());
+        mainStage.setTitle("UGAHacks Tower Defense");
+        mainStage.show();
     }
 
     private Scene createStart() {
@@ -66,12 +66,13 @@ public class TowerDefenseGame extends Application {
         Button quit = new Button("ESC");
         quit.setOnAction(e -> mainStage.setScene(createStart()));
         Rectangle dispImg = new Rectangle(320, 120, Color.GREEN);
-        Label memoryLbl = new Label("Memory" + memory);
-        Label moneyLbl = new Label("Money" + money);
+        Label memoryLbl = new Label("Memory: " + memory);
+        Label moneyLbl = new Label("Money:  " + money);
         VBox resources = new VBox(memoryLbl, moneyLbl);
         resources.setSpacing(2);
         HBox BotDisp = new HBox(quit, dispImg, resources);
         gamePane.setBottom(BotDisp);
+        TwrDfncGame.play();
 
         return playing;
     }

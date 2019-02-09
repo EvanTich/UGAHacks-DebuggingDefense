@@ -3,6 +3,7 @@ package ugahacks.test;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -14,9 +15,9 @@ public class TestGameField extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FlowPane root = new FlowPane();
+        BorderPane root = new BorderPane();
         GameField game = new GameField();
-        root.getChildren().addAll(new Button("SDAWDADS"), game);
+        root.setCenter(game);
         Scene scene = new Scene(root);
 
         game.play();

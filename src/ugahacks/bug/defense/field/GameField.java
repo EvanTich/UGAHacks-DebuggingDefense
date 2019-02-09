@@ -106,7 +106,7 @@ public class GameField extends Canvas {
         if(drawCircle) {
             // draw circle maaan
             g.setStroke(Color.GRAY);
-            g.strokeOval(circlePos.x, circlePos.y, circleRange, circleRange);
+            g.strokeOval(circlePos.x - circleRange / 2f, circlePos.y - circleRange / 2f, circleRange, circleRange);
         }
     }
 
