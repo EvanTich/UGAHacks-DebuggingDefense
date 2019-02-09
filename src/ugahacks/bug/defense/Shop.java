@@ -32,7 +32,7 @@ public class Shop extends VBox{
         Button tower3 = new Button("ULT");
         tower3.setOnAction(e -> {
             game.buyMode = true;
-            game.towerToPlace = 1;
+            game.towerToPlace = 2;
         });
         Label tower1Mem = new Label("Memory: 4");
         Label tower2Mem = new Label("Memory: 8");

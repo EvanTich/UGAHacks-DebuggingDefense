@@ -1,6 +1,8 @@
 package ugahacks.bug.defense;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,8 +20,8 @@ import ugahacks.bug.defense.field.GameField;
 public class TowerDefenseGame extends Application {
 
     private Stage mainStage;
-    public static int memory = 1000;
-    public static int money = 10000000;
+    public static IntegerProperty memory = new SimpleIntegerProperty(1000);
+    public static IntegerProperty money = new SimpleIntegerProperty(10000000);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -67,7 +69,9 @@ public class TowerDefenseGame extends Application {
         quit.setOnAction(e -> mainStage.setScene(createStart()));
         Rectangle dispImg = new Rectangle(320, 120, Color.GREEN);
         Label memoryLbl = new Label("Memory: " + memory);
+        memoryLbl.textProperty().bind(memory.asString("Memory: %d"));
         Label moneyLbl = new Label("Money:  " + money);
+        moneyLbl.textProperty().bind(money.asString("Money: %d"));
         VBox resources = new VBox(memoryLbl, moneyLbl);
         resources.setSpacing(2);
         HBox BotDisp = new HBox(quit, dispImg, resources);
