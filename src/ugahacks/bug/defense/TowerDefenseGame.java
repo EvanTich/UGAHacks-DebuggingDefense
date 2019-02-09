@@ -1,7 +1,9 @@
+package ugahacks.bug.defense;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class TowerDefenseGame extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
