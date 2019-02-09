@@ -9,6 +9,11 @@ import java.util.List;
 
 public class Debugger {
 
+    // no changing allowed (in code I mean, change the variables all you want here)
+    public static final Debugger JDB = new Debugger(null, 1, 25, 25);
+    public static final Debugger GDB = new Debugger(null, .75, 35, 30);
+    public static final Debugger ULT = new Debugger(null, .5, 50, 40); // ultra debugger
+
     Pos pos;
 
     // shooting*
@@ -17,6 +22,8 @@ public class Debugger {
            damage; // bigger = better
 
     private double shootTimer;
+    private Pos shootTo;
+    private double drawShotTimer;
 
     public Debugger(Pos pos, double speed, double range, double damage) {
         this.pos = pos;
@@ -26,6 +33,9 @@ public class Debugger {
     }
 
     public void update(List<Bug> bugs, double dt) {
+        if(drawShotTimer >= 0) // for drawing the shot to the enemy
+            drawShotTimer -= dt;
+
         shootTimer += dt;
         if(shootTimer >= speed) {
             shootTimer = 0;
@@ -38,7 +48,8 @@ public class Debugger {
         Bug closest = bugs.stream().max(Comparator.comparingDouble(b -> b.pos.distance(pos))).orElse(null);
 
         if(closest != null) {
-            // TODO: animate
+            shootTo = closest.pos; // for the visual
+            drawShotTimer = .25;
 
             closest.hp -= damage;
         }
@@ -46,6 +57,38 @@ public class Debugger {
 
     public void draw(GraphicsContext g) {
         g.setFill(Color.RED);
-        g.fillRect(pos.x, pos.y - 9, 3, 9);
+        g.fillRect(pos.x - 3 / 2f, pos.y - 9, 3, 9);
+
+        if(drawShotTimer > 0 && shootTo != null) {
+            g.setFill(Color.AQUA); // haha funny joke
+            g.setLineDashes(2);
+            g.strokeLine(pos.x, pos.y, shootTo.x, shootTo.y);
+        }
+    }
+
+    public void upgrade() {
+        if(range == JDB.range) {
+            // upgrade to GDB
+            speed = GDB.speed;
+            range = GDB.range;
+            damage = GDB.damage;
+        } else if(range == GDB.range) {
+            // upgrade to ULT
+            speed = ULT.speed;
+            range = ULT.range;
+            damage = ULT.damage;
+        }
+    }
+
+    public static Debugger makeDebugger(Pos pos, int level) {
+        switch(level) {
+            default:
+            case 0:
+                return new Debugger(pos, JDB.speed, JDB.range, JDB.damage);
+            case 1:
+                return new Debugger(pos, GDB.speed, GDB.range, GDB.damage);
+            case 2:
+                return new Debugger(pos, ULT.speed, ULT.range, ULT.damage);
+        }
     }
 }
