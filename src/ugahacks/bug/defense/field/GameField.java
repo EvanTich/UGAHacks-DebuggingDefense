@@ -12,6 +12,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 import ugahacks.bug.defense.Pos;
+import ugahacks.bug.defense.Shop;
 import ugahacks.bug.defense.TowerDefenseGame;
 
 import java.awt.geom.Line2D;
@@ -45,6 +46,8 @@ public class GameField extends Canvas {
     private int circleRange;
 
     public Debugger selectedTower;
+
+    private Shop gameShop;
 
     public GameField() {
         super(WIDTH, HEIGHT);
@@ -145,6 +148,10 @@ public class GameField extends Canvas {
         }
     }
 
+    public void setShop(Shop shop) {
+        this.gameShop = shop;
+    }
+
     public void onClick(MouseEvent e) {
         // if in debugger buy mode, put on board
         Pos pos = new Pos(e.getX(), e.getY());
@@ -156,8 +163,10 @@ public class GameField extends Canvas {
                     if(line.intersects(pos.x - 4, pos.y - 4, 8, 8))
                         canPlace = false;
 
-                if(canPlace)
+                if(canPlace) {
                     debuggers.add(Debugger.makeDebugger(pos, towerToPlace));
+                    buyMode = false;
+                }
             }
         } else {
             // if not in debugger mode, then select a tower (or you want to squash bugs)
@@ -167,6 +176,7 @@ public class GameField extends Canvas {
             for(Debugger d : debuggers)
                 if(new Rectangle(d.pos.x - 3 / 2f, d.pos.y - 9, 3, 9).contains(pos.x, pos.y)) {
                     selected = d;
+                    gameShop.changeSelectedTower(d);
                     break;
                 }
 

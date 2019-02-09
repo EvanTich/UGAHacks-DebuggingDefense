@@ -61,10 +61,9 @@ public class Shop extends VBox{
         hardwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
             this.getChildren().add(hrdwreShp);
             mainStage.sizeToScene();});
-
     }
 
-    void changeSelectedTower(Debugger tower) {
+    public void changeSelectedTower(Debugger tower) {
         String towerType = "";
         switch(tower.id) {
             case ('0'):
