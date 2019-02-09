@@ -73,7 +73,7 @@ public class TowerDefenseGame extends Application {
         //BottomDisplay
         Button quit = new Button("ESC");
         quit.setOnAction(e -> mainStage.setScene(createStart()));
-        Rectangle dispImg = new Rectangle(320, 120, Color.GREEN);
+        Rectangle dispImg = new Rectangle(270, 120, Color.GREEN);
         Label memoryLbl = new Label("Memory: " + memory);
         memoryLbl.textProperty().bind(memory.asString("Memory: %d"));
         Label moneyLbl = new Label("Money:  " + money);
@@ -89,6 +89,7 @@ public class TowerDefenseGame extends Application {
         VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
         resources.setAlignment(Pos.CENTER);
         resources.setSpacing(5);
+        resources.setMinWidth(160);
         HBox BotDisp = new HBox(quit, dispImg, resources);
         gamePane.setBottom(BotDisp);
         game.play();

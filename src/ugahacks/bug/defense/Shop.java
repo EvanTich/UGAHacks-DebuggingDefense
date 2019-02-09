@@ -34,13 +34,16 @@ public class Shop extends VBox{
             game.buyMode = true;
             game.towerToPlace = 2;
         });
-        Label tower1Mem = new Label("Memory: 4");
-        Label tower2Mem = new Label("Memory: 8");
-        Label tower3Mem = new Label("Memory: 16");
+        Label debuggerLabel = new Label("Debugger");
+        Label memLabel = new Label("Memory");
+        Label tower1Mem = new Label("4");
+        Label tower2Mem = new Label("8");
+        Label tower3Mem = new Label("16");
+        HBox softwareTitles = new HBox(debuggerLabel, memLabel);
         HBox twr1 = new HBox(tower1, tower1Mem);
         HBox twr2 = new HBox(tower2, tower2Mem);
         HBox twr3 = new HBox(tower3, tower3Mem);
-        VBox sftwreShp = new VBox(twr1, twr2, twr3);
+        VBox sftwreShp = new VBox(softwareTitles, twr1, twr2, twr3);
         sftwreShp.setSpacing(2.5);
         softwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
             this.getChildren().add(sftwreShp);
