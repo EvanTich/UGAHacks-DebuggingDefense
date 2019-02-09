@@ -1,6 +1,7 @@
 package ugahacks.bug.defense.field;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
 
 public class Bug {
@@ -22,6 +23,7 @@ public class Bug {
     }
 
     public void draw(GraphicsContext g) {
+        g.setFill(Color.GREEN);
         g.fillRect(pos.x - 3 / 2f, pos.y - 3 / 2f, 3, 3);
     }
 }

@@ -5,6 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
 
@@ -42,6 +43,10 @@ public class GameField extends Canvas {
                 gameLoop.start();
             }
         });
+
+        setOnMouseMoved(this::onMouseOver);
+        setOnMouseReleased(this::onClick);
+
         init();
     }
 
@@ -68,6 +73,15 @@ public class GameField extends Canvas {
      */
     public void draw(GraphicsContext g) {
         g.setFill(Color.BLACK);
+        g.fill();
+
+        g.setFill(Color.WHITE);
+        Path current = mainPath;
+        while(current != null) {
+            g.strokeLine(current.start.x, current.start.y, current.end.x, current.end.y);
+            current = current.nextPath;
+        }
+
         debuggers.forEach(d -> d.draw(g));
         bugs.forEach(b -> b.draw(g));
     }
@@ -85,7 +99,17 @@ public class GameField extends Canvas {
 
             bugs.get(i).move(1, dt);
         }
+    }
 
+    public void onMouseOver(MouseEvent e) {
+        // TODO
+        // if in debugger buy mode
+        // show range of tower,
+    }
 
+    public void onClick(MouseEvent e) {
+        // TODO
+        // if in debugger buy mode
+        // put on board
     }
 }

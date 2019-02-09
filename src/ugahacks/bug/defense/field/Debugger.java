@@ -1,6 +1,7 @@
 package ugahacks.bug.defense.field;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
 
 import java.util.Comparator;
@@ -44,6 +45,7 @@ public class Debugger {
     }
 
     public void draw(GraphicsContext g) {
+        g.setFill(Color.RED);
         g.fillRect(pos.x, pos.y - 9, 3, 9);
     }
 }
