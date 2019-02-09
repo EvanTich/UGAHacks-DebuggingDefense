@@ -10,9 +10,9 @@ import java.util.List;
 public class Debugger {
 
     // no changing allowed (in code I mean, change the variables all you want here)
-    public static final Debugger JDB = new Debugger(null, 1, 25, 25, '0');
-    public static final Debugger GDB = new Debugger(null, .75, 35, 30, '1');
-    public static final Debugger ULT = new Debugger(null, .5, 50, 40, '2'); // ultra debugger
+    public static final Debugger JDB = new Debugger(null, 1, 25, 25, 0);
+    public static final Debugger GDB = new Debugger(null, .75, 35, 30, 1);
+    public static final Debugger ULT = new Debugger(null, .5, 50, 40, 2); // ultra debugger
 
     Pos pos;
 
@@ -21,18 +21,18 @@ public class Debugger {
            range, // bigger = farther
            damage; // bigger = better
 
-    public char id;
+    public byte id;
 
     private double shootTimer;
     private Pos shootTo;
     private double drawShotTimer;
 
-    public Debugger(Pos pos, double speed, double range, double damage, char id) {
+    public Debugger(Pos pos, double speed, double range, double damage, int id) {
         this.pos = pos;
         this.speed = speed;
         this.range = range;
         this.damage = damage;
-        this.id = id;
+        this.id = (byte)id;
     }
 
     public void update(List<Bug> bugs, double dt) {
@@ -59,7 +59,7 @@ public class Debugger {
     }
 
     public void draw(GraphicsContext g) {
-        g.setFill(Color.RED);
+        g.setFill(id == 0 ? Color.RED : id == 1 ? Color.BLUE : Color.PURPLE);
         g.fillRect(pos.x - 3 / 2f, pos.y - 9, 3, 9);
 
         if(drawShotTimer > 0 && shootTo != null) {

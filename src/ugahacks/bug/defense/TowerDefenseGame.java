@@ -1,6 +1,8 @@
 package ugahacks.bug.defense;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,9 +21,10 @@ import ugahacks.bug.defense.field.GameField;
 public class TowerDefenseGame extends Application {
 
     private Stage mainStage;
-    public static int memory = 1000;
-    public static int money = 10000000;
-    public int health = 100;
+
+    public static IntegerProperty memory = new SimpleIntegerProperty(1000);
+    public static IntegerProperty money = new SimpleIntegerProperty(10000000);
+    public static IntegerProperty health = new SimpleIntegerProperty(100);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -72,8 +75,11 @@ public class TowerDefenseGame extends Application {
         quit.setOnAction(e -> mainStage.setScene(createStart()));
         Rectangle dispImg = new Rectangle(320, 120, Color.GREEN);
         Label memoryLbl = new Label("Memory: " + memory);
+        memoryLbl.textProperty().bind(memory.asString("Memory: %d"));
         Label moneyLbl = new Label("Money:  " + money);
+        moneyLbl.textProperty().bind(money.asString("Money: %d"));
         Label healthLbl = new Label("Health: " + health);
+        healthLbl.textProperty().bind(health.asString("Health: %d"));
         Button nextWave = new Button("Start");
         nextWave.setMinSize(80, 20);
         nextWave.setOnAction(e -> {
@@ -89,6 +95,7 @@ public class TowerDefenseGame extends Application {
         playing.getStylesheets().add("ugahacks/bug/defense/BugDefense.css");
         return playing;
     }
+
     public static void main(String[] args) {
         launch(args);
     }

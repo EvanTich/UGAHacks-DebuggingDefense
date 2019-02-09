@@ -110,6 +110,10 @@ public class GameField extends Canvas {
             // draw circle maaan
             g.setStroke(Color.GRAY);
             g.strokeOval(circlePos.x - circleRange / 2f, circlePos.y - circleRange / 2f, circleRange, circleRange);
+
+            // draw tower too
+            g.setFill(towerToPlace == 0 ? Color.RED : towerToPlace == 1 ? Color.BLUE : Color.PURPLE);
+            g.fillRect(circlePos.x - 3 / 2f, circlePos.y - 9, 3, 9);
         }
     }
 
@@ -157,7 +161,7 @@ public class GameField extends Canvas {
         Pos pos = new Pos(e.getX(), e.getY());
         if(buyMode && towerToPlace != -1) {
             int cost = 4 * (int)Math.pow(2, towerToPlace); // 4, 8, or 16
-            if(TowerDefenseGame.memory - cost >= 0 && debuggers.stream().noneMatch(d -> d.pos.distance(pos) <= 5)) {
+            if(TowerDefenseGame.memory.get() - cost >= 0 && debuggers.stream().noneMatch(d -> d.pos.distance(pos) <= 5)) {
                 boolean canPlace = true;
                 for(Line2D line : mainPathLines)
                     if(line.intersects(pos.x - 4, pos.y - 4, 8, 8))
@@ -166,6 +170,8 @@ public class GameField extends Canvas {
                 if(canPlace) {
                     debuggers.add(Debugger.makeDebugger(pos, towerToPlace));
                     buyMode = false;
+                    TowerDefenseGame.memory.subtract(cost);
+
                 }
             }
         } else {
