@@ -3,6 +3,7 @@ package ugahacks.bug.defense;
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -57,6 +58,8 @@ public class TowerDefenseGame extends Application {
     }
 
     private Scene createPlay() {
+
+
         //GameField
         BorderPane gamePane = new BorderPane();
         Scene playing = new Scene(gamePane);
@@ -64,6 +67,7 @@ public class TowerDefenseGame extends Application {
         gamePane.setCenter(game);
 
         Shop shop = new Shop(mainStage, game);
+        game.setShop(shop);
         gamePane.setRight(shop);
 
         //BottomDisplay
@@ -77,16 +81,18 @@ public class TowerDefenseGame extends Application {
         Label healthLbl = new Label("Health: " + health);
         healthLbl.textProperty().bind(health.asString("Health: %d"));
         Button nextWave = new Button("Start");
+        nextWave.setMinSize(80, 20);
         nextWave.setOnAction(e -> {
            nextWave.setText("Debugging");
            nextWave.setOnAction(null);
         });
         VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
+        resources.setAlignment(Pos.CENTER);
         resources.setSpacing(5);
         HBox BotDisp = new HBox(quit, dispImg, resources);
         gamePane.setBottom(BotDisp);
         game.play();
-
+        playing.getStylesheets().add("ugahacks/bug/defense/BugDefense.css");
         return playing;
     }
 
