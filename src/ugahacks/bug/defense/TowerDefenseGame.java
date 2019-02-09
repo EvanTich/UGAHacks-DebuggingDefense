@@ -20,6 +20,7 @@ public class TowerDefenseGame extends Application {
     private Stage mainStage;
     public static int memory = 1000;
     public static int money = 10000000;
+    public int health = 100;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -68,8 +69,14 @@ public class TowerDefenseGame extends Application {
         Rectangle dispImg = new Rectangle(320, 120, Color.GREEN);
         Label memoryLbl = new Label("Memory: " + memory);
         Label moneyLbl = new Label("Money:  " + money);
-        VBox resources = new VBox(memoryLbl, moneyLbl);
-        resources.setSpacing(2);
+        Label healthLbl = new Label("Health: " + health);
+        Button nextWave = new Button("Start");
+        nextWave.setOnAction(e -> {
+           nextWave.setText("Debugging");
+           nextWave.setOnAction(null);
+        });
+        VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
+        resources.setSpacing(5);
         HBox BotDisp = new HBox(quit, dispImg, resources);
         gamePane.setBottom(BotDisp);
         game.play();
