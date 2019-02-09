@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class Debugger {
@@ -47,8 +46,9 @@ public class Debugger {
     }
 
     public void shoot(List<Bug> bugs) {
-        // find closest bug and shoot
-        Bug closest = bugs.stream().max(Comparator.comparingDouble(b -> b.pos.distance(pos))).orElse(null);
+        // find all bugs in range and shoot first
+//        Bug closest = bugs.stream().min(Comparator.comparingDouble(b -> b.pos.distance(pos))).orElse(null);
+        Bug closest = bugs.stream().filter(b -> b.pos.distance(pos) < range).findFirst().orElse(null);
 
         if(closest != null) {
             shootTo = closest.pos; // for the visual

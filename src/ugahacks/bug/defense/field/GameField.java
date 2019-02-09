@@ -161,7 +161,7 @@ public class GameField extends Canvas {
                         canPlace = false;
 
                 if(canPlace) {
-                    TowerDefenseGame.memory.subtract(cost);
+                    TowerDefenseGame.memory.set(TowerDefenseGame.memory.get() - cost);
                     debuggers.add(Debugger.makeDebugger(pos, towerToPlace));
                 }
             }
