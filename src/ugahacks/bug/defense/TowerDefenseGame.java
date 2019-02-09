@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -48,14 +49,44 @@ public class TowerDefenseGame extends Application {
     }
 
     private Scene createPlay() {
+        //GameField
         BorderPane gamePane = new BorderPane();
+        Scene playing = new Scene(gamePane);
         GameField TwrDfncGame = new GameField();
         gamePane.setCenter(TwrDfncGame);
-        Button hardwareShop = new Button("Hardware");
-        Button softwareShop = new Button("Software");
-        HBox shopTabs = new HBox();
-        VBox shop = new VBox(shopTabs);
-        Scene playing = new Scene(gamePane);
+
+        VBox shop = new VBox();
+        gamePane.setRight(shop);
+
+        //ShopTab
+        Button hardwareShopBut = new Button("Hardware");
+        Button softwareShopBut = new Button("Software");
+        HBox shopTabs = new HBox(softwareShopBut, hardwareShopBut);
+        shop.getChildren().add(shopTabs);
+
+        //SoftwareShop
+        Button tower1 = new Button("Debugger");
+        Button tower2 = new Button("D38ugg3r");
+        Button tower3 = new Button("DEBUGGER");
+        Label tower1Mem = new Label("Memory: 4");
+        Label tower2Mem = new Label("Memory: 8");
+        Label tower3Mem = new Label("Memory: 16");
+        HBox twr1 = new HBox(tower1, tower1Mem);
+        HBox twr2 = new HBox(tower2, tower2Mem);
+        HBox twr3 = new HBox(tower3, tower3Mem);
+        VBox sftwreShp = new VBox(twr1, twr2, twr3);
+        softwareShopBut.setOnAction(e -> {if(shop.getChildren().size() > 1) {shop.getChildren().remove(1);}
+        shop.getChildren().add(sftwreShp);
+        mainStage.sizeToScene();});
+
+        //HardwareShop
+        Button upGrade1 = new Button("");
+        Button upGrade2 = new Button("");
+        Button upGrade3 = new Button("");
+        Label upGrade1Cost = new Label("Cost: $1000");
+        Label upGrade2Cost = new Label("Cost: $2000");
+        Label upGrade3Cost = new Label("Cost: $3000");
+
         return playing;
     }
     public static void main(String[] args) {
