@@ -56,10 +56,10 @@ public class TowerDefenseGame extends Application {
         //GameField
         BorderPane gamePane = new BorderPane();
         Scene playing = new Scene(gamePane);
-        GameField TwrDfncGame = new GameField();
-        gamePane.setCenter(TwrDfncGame);
+        GameField game = new GameField();
+        gamePane.setCenter(game);
 
-        Shop shop = new Shop(mainStage);
+        Shop shop = new Shop(mainStage, game);
         gamePane.setRight(shop);
 
         //BottomDisplay
@@ -72,7 +72,7 @@ public class TowerDefenseGame extends Application {
         resources.setSpacing(2);
         HBox BotDisp = new HBox(quit, dispImg, resources);
         gamePane.setBottom(BotDisp);
-        TwrDfncGame.play();
+        game.play();
 
         return playing;
     }

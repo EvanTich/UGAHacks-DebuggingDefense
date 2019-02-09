@@ -7,10 +7,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ugahacks.bug.defense.field.Debugger;
+import ugahacks.bug.defense.field.GameField;
 
 public class Shop extends VBox{
+    Shop(Stage mainStage, GameField game) {
 
-    Shop(Stage mainStage) {
         //ShopTab
         Button hardwareShopBut = new Button("Hardware");
         Button softwareShopBut = new Button("Software");
@@ -18,9 +19,21 @@ public class Shop extends VBox{
         this.getChildren().add(shopTabs);
 
         //SoftwareShop
-        Button tower1 = new Button("Debugger");
-        Button tower2 = new Button("D38ugg3r");
-        Button tower3 = new Button("DEBUGGER");
+        Button tower1 = new Button("JDB");
+        tower1.setOnAction(e -> {
+            game.buyMode = true;
+            game.towerToPlace = 0;
+        });
+        Button tower2 = new Button("GDB");
+        tower2.setOnAction(e -> {
+            game.buyMode = true;
+            game.towerToPlace = 1;
+        });
+        Button tower3 = new Button("ULT");
+        tower3.setOnAction(e -> {
+            game.buyMode = true;
+            game.towerToPlace = 1;
+        });
         Label tower1Mem = new Label("Memory: 4");
         Label tower2Mem = new Label("Memory: 8");
         Label tower3Mem = new Label("Memory: 16");
