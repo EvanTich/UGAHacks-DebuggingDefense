@@ -16,7 +16,8 @@ public class Bug {
     private final int HEIGHT = 12;
 
     Pos pos;
-    int hp;
+    int hp, money, dmg;
+    public static int moneyMultiply = 1;
 
     Path onPath; // can be null, this doesnt move if null
 
@@ -26,8 +27,13 @@ public class Bug {
         pos = new Pos(onPath.start.x, onPath.start.y);
         this.type = (byte) type;
         this.onPath = onPath;
-
+        money = type == 0 ? (moneyMultiply * 40) : type == 1 ? (moneyMultiply * 80) : (moneyMultiply * 160);
         hp = type == 0 ? 50 : type == 1 ? 100 : 200;
+        dmg = type == 0 ? 2 : type == 1 ? 5 : 15;
+    }
+
+    public byte getType(){
+        return type;
     }
 
     public void move(double speed, double dt) {

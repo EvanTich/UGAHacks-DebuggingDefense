@@ -24,7 +24,7 @@ public class TestGameField extends Application {
         game.buyMode = true;
         game.towerToPlace = 0;
 
-        game.startWaves();
+        game.startWaves(0);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("FIELD TEST!");

@@ -19,6 +19,9 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ugahacks.bug.defense.TowerDefenseGame.health;
+import static ugahacks.bug.defense.TowerDefenseGame.money;
+
 public class GameField extends Canvas {
 
     public static final double WIDTH = 640 / 2f;
@@ -36,12 +39,14 @@ public class GameField extends Canvas {
     private BooleanProperty paused;
 
     private long lastNanoTime;
+    private double spawnTime0, spawnTime1, spawnTime2;
 
     public List<Debugger> debuggers;
     private List<Bug> bugs;
     private Line2D[] mainPathLines;
 
     public boolean buyMode; // if true then can place a tower
+    public boolean gameStarter;
     public int towerToPlace;
 
     private boolean drawCircle;
@@ -95,8 +100,8 @@ public class GameField extends Canvas {
         paused.set(false);
     }
 
-    public void startWaves() {
-        bugs.add(new Bug(100, mainPath));
+    public void startWaves(int type) {
+        bugs.add(new Bug(type, mainPath));
         // TODO
     }
 
@@ -153,10 +158,35 @@ public class GameField extends Canvas {
     public void update(double dt) {
         debuggers.forEach(d -> d.update(bugs, dt));
         for(int i = 0; i < bugs.size(); i++) {
-            bugs.get(i).move(100, dt);
+            bugs.get(i).move(100 - (bugs.get(i).getType() * 15), dt);
 
-            if(bugs.get(i).hp <= 0)
+            if(bugs.get(i).onPath == null) {
+                health.set(health.get() - bugs.get(i).dmg);
                 bugs.remove(i--);
+                continue;
+            }
+            if(bugs.get(i).hp <= 0) {
+                money.set(money.get() + bugs.get(i).money);
+                bugs.remove(i--);
+                continue;
+            }
+        }
+
+        if(!gameStarter) return;
+        spawnTime0 -= dt;
+        spawnTime1 -= dt;
+        spawnTime2 -= dt;
+        if (spawnTime0 <= 0) {
+            startWaves(0);
+            spawnTime0 = 1.5;
+        }
+        if (spawnTime1 <= 0) {
+            startWaves(1);
+            spawnTime1 = 3;
+        }
+        if (spawnTime2 <= 0) {
+            startWaves(2);
+            spawnTime2 = 5;
         }
     }
 

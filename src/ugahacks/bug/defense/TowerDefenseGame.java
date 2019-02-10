@@ -24,8 +24,8 @@ public class TowerDefenseGame extends Application {
 
     private Stage mainStage;
 
-    public static IntegerProperty memory = new SimpleIntegerProperty(1000);
-    public static IntegerProperty money = new SimpleIntegerProperty(10000000);
+    public static IntegerProperty memory = new SimpleIntegerProperty(100);
+    public static IntegerProperty money = new SimpleIntegerProperty(10000);
     public static IntegerProperty health = new SimpleIntegerProperty(100);
 
     @Override
@@ -109,6 +109,7 @@ public class TowerDefenseGame extends Application {
         nextWave.setOnAction(e -> {
            nextWave.setText("Debugging");
            nextWave.setOnAction(null);
+           game.gameStarter = true;
         });
         VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
         resources.setAlignment(Pos.CENTER);

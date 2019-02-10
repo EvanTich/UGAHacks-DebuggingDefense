@@ -8,8 +8,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ugahacks.bug.defense.field.Bug;
 import ugahacks.bug.defense.field.Debugger;
 import ugahacks.bug.defense.field.GameField;
+
+import static ugahacks.bug.defense.TowerDefenseGame.*;
 
 public class Shop extends VBox{
 
@@ -17,6 +20,9 @@ public class Shop extends VBox{
     private GridPane softwareShop;
     private Stage mainStage;
     private GameField game;
+    private int ramUp = 1000;
+    private int cpuUp = 2000;
+    private int gpuUp = 3000;
 
     public Debugger selectedTower;
 
@@ -56,25 +62,8 @@ public class Shop extends VBox{
         Label tower2Mem = new Label("8");
         Label tower3Mem = new Label("16");
         HBox softwareTitles = new HBox(20, debuggerLabel, memLabel);
-        HBox twr1 = new HBox(20, tower1, tower1Mem);
-        HBox twr2 = new HBox(20, tower2, tower2Mem);
-        HBox twr3 = new HBox(20, tower3, tower3Mem);
         //Formatting
         softwareTitles.setMinWidth(160);
-//        HBox.setHgrow(tower1, Priority.ALWAYS);
-//        HBox.setHgrow(tower1Mem, Priority.ALWAYS);
-//        HBox.setHgrow(tower2, Priority.ALWAYS);
-//        HBox.setHgrow(tower2Mem, Priority.ALWAYS);
-//        HBox.setHgrow(tower3, Priority.ALWAYS);
-//        HBox.setHgrow(tower3Mem, Priority.ALWAYS);
-        debuggerLabel.setAlignment(Pos.CENTER_LEFT);
-        memLabel.setAlignment(Pos.CENTER_RIGHT);
-        tower1.setAlignment(Pos.CENTER_LEFT);
-        tower1Mem.setAlignment(Pos.CENTER_RIGHT);
-        tower2.setAlignment(Pos.CENTER_LEFT);
-        tower2Mem.setAlignment(Pos.CENTER_RIGHT);
-        tower3.setAlignment(Pos.CENTER_LEFT);
-        tower3Mem.setAlignment(Pos.CENTER_RIGHT);
 
         softwareShop = new GridPane();
         softwareShop.setHgap(20);
@@ -95,19 +84,56 @@ public class Shop extends VBox{
             mainStage.sizeToScene();});
 
         //HardwareShop
+
+        Label upGrade1Cost = new Label("$1000");
+        Label upGrade2Cost = new Label("$2000");
+        Label upGrade3Cost = new Label("$3000");
+
         Button upGrade1 = new Button("RAM");
+        upGrade1.setOnAction(e -> {
+            if(money.get() >= ramUp) {
+                memory.set(memory.get() + 20);
+                money.set(money.get() - ramUp);
+                ramUp *= 2;
+                upGrade1Cost.setText("$" + ramUp);
+            }
+        });
         Button upGrade2 = new Button("CPU");
+        upGrade2.setOnAction(e -> {
+            if(money.get() >= cpuUp) {
+                health.set(health.get() + 20);
+                money.set(money.get() - cpuUp);
+                cpuUp *= 2;
+                upGrade2Cost.setText("$" + cpuUp);
+            }
+        });
         Button upGrade3 = new Button("GPU");
-        Label upGrade1Cost = new Label("Cost: $1000");
-        Label upGrade2Cost = new Label("Cost: $2000");
-        Label upGrade3Cost = new Label("Cost: $3000");
-        HBox up1 = new HBox(upGrade1, upGrade1Cost);
-        HBox up2 = new HBox(upGrade2, upGrade2Cost);
-        HBox up3 = new HBox(upGrade3, upGrade3Cost);
-        VBox hrdwreShp = new VBox(up1, up2, up3);
-        hrdwreShp.setSpacing(2.5);
+        upGrade3.setOnAction(e -> {
+            if(money.get() >= gpuUp) {
+                Bug.moneyMultiply++;
+                money.set(money.get() - gpuUp);
+                gpuUp *= 2;
+                upGrade3Cost.setText("$" + gpuUp);
+            }
+        });
+      //  Label upGrade1Cost = new Label("$1000");
+      //  Label upGrade2Cost = new Label("$2000");
+      //  Label upGrade3Cost = new Label("$3000");
+
+        GridPane hardwareShop = new GridPane();
+        hardwareShop.setHgap(20);
+        hardwareShop.setVgap(8);
+        hardwareShop.add(new Label("Upgrade"), 0, 0);
+        hardwareShop.add(new Label("Cost"), 1, 0);
+        hardwareShop.add(upGrade1, 0, 1);
+        hardwareShop.add(upGrade1Cost, 1, 1);
+        hardwareShop.add(upGrade2, 0, 2);
+        hardwareShop.add(upGrade2Cost, 1, 2);
+        hardwareShop.add(upGrade3, 0, 3);
+        hardwareShop.add(upGrade3Cost, 1, 3);
+
         hardwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
-            this.getChildren().add(hrdwreShp);
+            this.getChildren().add(hardwareShop);
             mainStage.sizeToScene();});
     }
 
@@ -151,6 +177,7 @@ public class Shop extends VBox{
         Button uninstall = new Button("Uninstall");
         uninstall.setOnAction(e -> {
             game.debuggers.remove(tower);
+            memory.set(memory.get() + (tower.id == 0 ? 4 : tower.id == 1 ? 8 : 16));
         });
         VBox towerOptions = new VBox(upgrade, uninstall);
 
