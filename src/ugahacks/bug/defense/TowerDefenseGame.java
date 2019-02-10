@@ -74,13 +74,13 @@ public class TowerDefenseGame extends Application {
 
         //BottomDisplay
         Button quit = new Button("ESC");
-        Button toggleRange = new Button("Show Ranges");
-        VBox leftButtons = new VBox(quit, toggleRange);
         quit.setOnAction(e -> mainStage.setScene(createStart()));
         Image hackerBoi = new Image("ugahacks/UGAHacksAssets/UGAHacks_HackerBoi.png");
         ImageView hackerBoiView = new ImageView(hackerBoi);
-        hackerBoiView.setFitHeight(160);
+        hackerBoiView.setFitHeight(120);
         hackerBoiView.setFitWidth(320);
+        Group hackerBoiGroup = new Group();
+        hackerBoiGroup.getChildren().add(hackerBoiView);
         Label memoryLbl = new Label("Memory: " + memory);
         memoryLbl.textProperty().bind(memory.asString("Memory: %d"));
         Label moneyLbl = new Label("Money:  " + money);
@@ -96,8 +96,8 @@ public class TowerDefenseGame extends Application {
         VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
         resources.setAlignment(Pos.CENTER);
         resources.setSpacing(5);
-        resources.setMinWidth(160);
-        HBox BotDisp = new HBox(leftButtons, hackerBoiView, resources);
+        resources.setMaxWidth(160);
+        HBox BotDisp = new HBox(hackerBoiGroup, resources);
         gamePane.setBottom(BotDisp);
         game.play();
         playing.getStylesheets().add("ugahacks/bug/defense/BugDefense.css");

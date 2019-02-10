@@ -14,6 +14,8 @@ import ugahacks.bug.defense.field.GameField;
 public class Shop extends VBox{
     Shop(Stage mainStage, GameField game) {
 
+        this.setMaxWidth(160);
+
         //ShopTab
         Button hardwareShopBut = new Button("Hardware");
         Button softwareShopBut = new Button("Software");
@@ -45,12 +47,23 @@ public class Shop extends VBox{
         HBox twr1 = new HBox(tower1, tower1Mem);
         HBox twr2 = new HBox(tower2, tower2Mem);
         HBox twr3 = new HBox(tower3, tower3Mem);
+        //Formatting
+        softwareTitles.setMinWidth(160);
         HBox.setHgrow(tower1, Priority.ALWAYS);
         HBox.setHgrow(tower1Mem, Priority.ALWAYS);
         HBox.setHgrow(tower2, Priority.ALWAYS);
         HBox.setHgrow(tower2Mem, Priority.ALWAYS);
         HBox.setHgrow(tower3, Priority.ALWAYS);
         HBox.setHgrow(tower3Mem, Priority.ALWAYS);
+        debuggerLabel.setAlignment(Pos.CENTER_LEFT);
+        memLabel.setAlignment(Pos.CENTER_RIGHT);
+        tower1.setAlignment(Pos.CENTER_LEFT);
+        tower1Mem.setAlignment(Pos.CENTER_RIGHT);
+        tower2.setAlignment(Pos.CENTER_LEFT);
+        tower2Mem.setAlignment(Pos.CENTER_RIGHT);
+        tower3.setAlignment(Pos.CENTER_LEFT);
+        tower3Mem.setAlignment(Pos.CENTER_RIGHT);
+
         VBox sftwreShp = new VBox(softwareTitles, twr1, twr2, twr3);
         sftwreShp.setSpacing(2.5);
         sftwreShp.setAlignment(Pos.CENTER_LEFT);
