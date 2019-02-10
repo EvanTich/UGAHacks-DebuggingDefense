@@ -1,14 +1,13 @@
 package ugahacks.bug.defense;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -22,14 +21,17 @@ import ugahacks.bug.defense.field.GameField;
 
 public class TowerDefenseGame extends Application {
 
+    public static TowerDefenseGame _instance;
+
     private Stage mainStage;
 
-    public static IntegerProperty memory = new SimpleIntegerProperty(100);
-    public static IntegerProperty money = new SimpleIntegerProperty(10000);
+    public static IntegerProperty memory = new SimpleIntegerProperty(32);
+    public static IntegerProperty money = new SimpleIntegerProperty(0);
     public static IntegerProperty health = new SimpleIntegerProperty(100);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        _instance = this;
         mainStage = primaryStage;
         mainStage.setScene(createStart());
         mainStage.setTitle("UGAHacks Tower Defense");
@@ -37,6 +39,10 @@ public class TowerDefenseGame extends Application {
     }
 
     private Scene createStart() {
+        memory.set(32);
+        money.set(0);
+        health.set(100);
+
         Group errorField = new Group();
         errorField.minWidth(640);
         errorField.minHeight(480);
@@ -123,6 +129,27 @@ public class TowerDefenseGame extends Application {
         game.play();
         playing.getStylesheets().add("ugahacks/bug/defense/BugDefense.css");
         return playing;
+    }
+
+    public void gameOver(){
+        Alert gameOver = new Alert(Alert.AlertType.CONFIRMATION);
+        gameOver.setTitle("YOU LOST");
+        gameOver.setHeaderText("GAME OVER");
+        gameOver.setContentText("Game Over \n Play Again?");
+
+        gameOver.setOnHidden(e -> {
+            ButtonType but = gameOver.getResult();
+
+            if(but == ButtonType.CANCEL) {
+                // close program
+                Platform.exit();
+                System.exit(0);
+            } else {
+                this.mainStage.setScene(createStart());
+            }
+        });
+
+        gameOver.show();
     }
 
     public static void main(String[] args) {

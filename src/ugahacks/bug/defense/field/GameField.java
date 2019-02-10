@@ -59,6 +59,8 @@ public class GameField extends Canvas {
 
     public static boolean showRanges;
 
+    private double difficultyModifier;
+
     public GameField() {
         super(WIDTH, HEIGHT);
         paused = new SimpleBooleanProperty(true);
@@ -90,6 +92,7 @@ public class GameField extends Canvas {
         bugs = new ArrayList<>();
 
         showRanges = false;
+        difficultyModifier = 1;
     }
 
     public void pause() {
@@ -163,6 +166,10 @@ public class GameField extends Canvas {
             if(bugs.get(i).onPath == null) {
                 health.set(health.get() - bugs.get(i).dmg);
                 bugs.remove(i--);
+                if(health.get() <= 0) {
+                    this.pause();
+                    TowerDefenseGame._instance.gameOver();
+                }
                 continue;
             }
             if(bugs.get(i).hp <= 0) {
@@ -172,21 +179,25 @@ public class GameField extends Canvas {
             }
         }
 
-        if(!gameStarter) return;
+        if(!gameStarter)
+            return;
+
+        difficultyModifier += 0.01 * dt;
+
         spawnTime0 -= dt;
         spawnTime1 -= dt;
         spawnTime2 -= dt;
         if (spawnTime0 <= 0) {
             startWaves(0);
-            spawnTime0 = 1.5;
+            spawnTime0 = 1.5 / difficultyModifier;
         }
         if (spawnTime1 <= 0) {
             startWaves(1);
-            spawnTime1 = 3;
+            spawnTime1 = 3 / difficultyModifier;
         }
         if (spawnTime2 <= 0) {
             startWaves(2);
-            spawnTime2 = 5;
+            spawnTime2 = 5 / difficultyModifier;
         }
     }
 
@@ -232,6 +243,9 @@ public class GameField extends Canvas {
                     buyMode = false;
                     drawCircle = false;
                 }
+            }
+            else {
+                buyMode = false;
             }
         } else {
             // if not in debugger mode, then select a tower (or you want to squash bugs)

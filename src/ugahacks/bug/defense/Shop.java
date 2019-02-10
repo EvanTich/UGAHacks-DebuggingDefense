@@ -171,8 +171,19 @@ public class Shop extends VBox{
         Button upgrade = new Button("Upgrade");
         upgrade.setOnAction(e -> {
             // check if we have enough memory
-            tower.upgrade();
-            changeSelectedTower(tower);
+            if(tower.id == 0 && memory.get() < 4) {
+                return;
+            }
+            else if(tower.id == 1 && memory.get() < 8) {
+                return;
+            }
+            else if(tower.id == 2 && memory.get() < 16) {
+                return;
+            }
+            else {
+                tower.upgrade();
+                changeSelectedTower(tower);
+            }
         });
         Button uninstall = new Button("Uninstall");
         uninstall.setOnAction(e -> {

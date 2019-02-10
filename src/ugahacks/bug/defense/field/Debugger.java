@@ -15,7 +15,7 @@ public class Debugger {
     // no changing allowed (in code I mean, change the variables all you want here)
     public static final Debugger JDB = new Debugger(null, 1, 25, 25, 0);
     public static final Debugger GDB = new Debugger(null, .75, 35, 30, 1);
-    public static final Debugger ULT = new Debugger(null, .5, 50, 40, 2); // ultra debugger
+    public static final Debugger ULT = new Debugger(null, .4, 50, 50, 2); // ultra debugger
 
     Pos pos;
 
