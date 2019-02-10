@@ -1,3 +1,9 @@
 .root{
     -fx-font-size: 14 pt;
 }
+.button{
+    -fx-min-width: 50;
+}
+.hbox {
+    -fx-padding:20;
+}
