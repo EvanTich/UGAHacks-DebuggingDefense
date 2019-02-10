@@ -45,8 +45,6 @@ public class GameField extends Canvas {
     private Pos circlePos;
     private int circleRange;
 
-    public Debugger selectedTower;
-
     private Shop gameShop;
 
     public boolean showRanges;
@@ -92,6 +90,10 @@ public class GameField extends Canvas {
         paused.set(false);
     }
 
+    public void startWaves() {
+        bugs.add(new Bug(100, mainPath));
+    }
+
     /**
      * This method draws all of the Objects in the game.
      * @param g the GraphicsContext to be drawn on
@@ -101,6 +103,7 @@ public class GameField extends Canvas {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setStroke(Color.WHITE);
+        g.setLineDashes(0);
         Path current = mainPath;
         while(current != null) {
             g.strokeLine(current.start.x, current.start.y, current.end.x, current.end.y);
@@ -128,6 +131,7 @@ public class GameField extends Canvas {
     private void drawCircle(GraphicsContext g, Color color, Pos pos, double radius) {
         // draw circle maaan
         g.setStroke(color);
+        g.setLineDashes(0);
         g.strokeOval(pos.x - radius, pos.y - radius, radius * 2, radius * 2);
     }
 
@@ -139,10 +143,10 @@ public class GameField extends Canvas {
     public void update(double dt) {
         debuggers.forEach(d -> d.update(bugs, dt));
         for(int i = 0; i < bugs.size(); i++) {
+            bugs.get(i).move(100, dt);
+
             if(bugs.get(i).hp <= 0)
                 bugs.remove(i--);
-
-            bugs.get(i).move(1, dt);
         }
     }
 
@@ -192,15 +196,11 @@ public class GameField extends Canvas {
             // if not in debugger mode, then select a tower (or you want to squash bugs)
 
             // get selected object
-            Debugger selected = null;
             for(Debugger d : debuggers)
                 if(new Rectangle(d.pos.x - 3 / 2f, d.pos.y - 9, 3, 9).contains(pos.x, pos.y)) {
-                    selected = d;
                     gameShop.changeSelectedTower(d);
                     break;
                 }
-
-            selectedTower = selected; // upgrading
         }
     }
 }

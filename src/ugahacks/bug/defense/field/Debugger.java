@@ -8,6 +8,9 @@ import java.util.List;
 
 public class Debugger {
 
+    public static final int WIDTH = 3;
+    public static final int HEIGHT = 9;
+
     // no changing allowed (in code I mean, change the variables all you want here)
     public static final Debugger JDB = new Debugger(null, 1, 25, 25, 0);
     public static final Debugger GDB = new Debugger(null, .75, 35, 30, 1);
@@ -60,12 +63,12 @@ public class Debugger {
 
     public void draw(GraphicsContext g) {
         g.setFill(id == 0 ? Color.RED : id == 1 ? Color.BLUE : Color.PURPLE);
-        g.fillRect(pos.x - 3 / 2f, pos.y - 9, 3, 9);
+        g.fillRect(pos.x - WIDTH / 2f, pos.y - HEIGHT, WIDTH, HEIGHT);
 
         if(drawShotTimer > 0 && shootTo != null) {
-            g.setFill(Color.AQUA); // haha funny joke
+            g.setStroke(Color.AQUA); // haha funny joke
             g.setLineDashes(2);
-            g.strokeLine(pos.x, pos.y, shootTo.x, shootTo.y);
+            g.strokeLine(pos.x, pos.y - 7, shootTo.x, shootTo.y);
         }
     }
 
