@@ -3,7 +3,7 @@ package ugahacks.bug.defense;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -14,7 +14,7 @@ import ugahacks.bug.defense.field.GameField;
 public class Shop extends VBox{
 
 
-    private VBox softwareShop;
+    private GridPane softwareShop;
     private Stage mainStage;
     private GameField game;
 
@@ -55,18 +55,18 @@ public class Shop extends VBox{
         Label tower1Mem = new Label("4");
         Label tower2Mem = new Label("8");
         Label tower3Mem = new Label("16");
-        HBox softwareTitles = new HBox(debuggerLabel, memLabel);
-        HBox twr1 = new HBox(tower1, tower1Mem);
-        HBox twr2 = new HBox(tower2, tower2Mem);
-        HBox twr3 = new HBox(tower3, tower3Mem);
+        HBox softwareTitles = new HBox(20, debuggerLabel, memLabel);
+        HBox twr1 = new HBox(20, tower1, tower1Mem);
+        HBox twr2 = new HBox(20, tower2, tower2Mem);
+        HBox twr3 = new HBox(20, tower3, tower3Mem);
         //Formatting
         softwareTitles.setMinWidth(160);
-        HBox.setHgrow(tower1, Priority.ALWAYS);
-        HBox.setHgrow(tower1Mem, Priority.ALWAYS);
-        HBox.setHgrow(tower2, Priority.ALWAYS);
-        HBox.setHgrow(tower2Mem, Priority.ALWAYS);
-        HBox.setHgrow(tower3, Priority.ALWAYS);
-        HBox.setHgrow(tower3Mem, Priority.ALWAYS);
+//        HBox.setHgrow(tower1, Priority.ALWAYS);
+//        HBox.setHgrow(tower1Mem, Priority.ALWAYS);
+//        HBox.setHgrow(tower2, Priority.ALWAYS);
+//        HBox.setHgrow(tower2Mem, Priority.ALWAYS);
+//        HBox.setHgrow(tower3, Priority.ALWAYS);
+//        HBox.setHgrow(tower3Mem, Priority.ALWAYS);
         debuggerLabel.setAlignment(Pos.CENTER_LEFT);
         memLabel.setAlignment(Pos.CENTER_RIGHT);
         tower1.setAlignment(Pos.CENTER_LEFT);
@@ -76,8 +76,19 @@ public class Shop extends VBox{
         tower3.setAlignment(Pos.CENTER_LEFT);
         tower3Mem.setAlignment(Pos.CENTER_RIGHT);
 
-        softwareShop = new VBox(softwareTitles, twr1, twr2, twr3);
-        softwareShop.setSpacing(2.5);
+        softwareShop = new GridPane();
+        softwareShop.setHgap(20);
+        softwareShop.setVgap(8);
+        softwareShop.add(debuggerLabel, 0, 0);
+        softwareShop.add(memLabel, 1, 0);
+        softwareShop.add(tower1, 0, 1);
+        softwareShop.add(tower1Mem, 1, 1);
+        softwareShop.add(tower2, 0, 2);
+        softwareShop.add(tower2Mem, 1, 2);
+        softwareShop.add(tower3, 0, 3);
+        softwareShop.add(tower3Mem, 1, 3);
+
+//        softwareShop = new VBox(softwareTitles, twr1, twr2, twr3);
         softwareShop.setAlignment(Pos.CENTER_LEFT);
         softwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
             this.getChildren().add(softwareShop);
@@ -98,18 +109,6 @@ public class Shop extends VBox{
         hardwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
             this.getChildren().add(hrdwreShp);
             mainStage.sizeToScene();});
-
-        //Tooltips for buttons
-        hardwareShopBut.setTooltip(new Tooltip("Upgrade your PC"));
-        softwareShopBut.setTooltip(new Tooltip("Add debuggers to fight off bugs"));
-
-        tower1.setTooltip(new Tooltip("Basic tower"));
-        tower2.setTooltip(new Tooltip("Mid-tier tower"));
-        tower3.setTooltip(new Tooltip("Top-tier tower"));
-
-        upGrade1.setTooltip(new Tooltip("Add more memory to allow placement of more debuggers"));
-        upGrade2.setTooltip(new Tooltip("Speed up your processor for more HP"));
-        upGrade3.setTooltip(new Tooltip("Upgrade your graphics to rake in more cash for debugging"));
     }
 
     public void returnToShop(){
@@ -158,10 +157,6 @@ public class Shop extends VBox{
         VBox towerUpgrade = new VBox(currentInfo, towerOptions);
         this.getChildren().remove(1);
         this.getChildren().add(towerUpgrade);
-
-        //Tooltip for tower buttons
-        upgrade.setTooltip(new Tooltip("Upgrade this debugger to the next tier"));
-        uninstall.setTooltip(new Tooltip("Scrap this debugger and regain RAM"));
 
     }
 }
