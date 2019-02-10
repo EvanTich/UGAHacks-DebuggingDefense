@@ -22,7 +22,6 @@ public class Bug {
     }
 
     public void move(double speed, double dt) {
-        System.out.println("pos: (" + pos.x + ", " + pos.y + ")");
         if(onPath != null)
             onPath.move(this, speed, dt);
     }

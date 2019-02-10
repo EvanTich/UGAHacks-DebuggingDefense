@@ -13,8 +13,12 @@ import ugahacks.bug.defense.field.GameField;
 
 public class Shop extends VBox{
 
+
     private VBox sftwreShp;
     private Stage mainStage;
+
+    public Debugger selectedTower;
+
 
     Shop(Stage mainStage, GameField game) {
 
@@ -101,6 +105,7 @@ public class Shop extends VBox{
     }
 
     public void changeSelectedTower(Debugger tower) {
+        selectedTower = tower;
         String towerType = "";
         switch(tower.id) {
             case ('0'):
@@ -132,6 +137,10 @@ public class Shop extends VBox{
         this.getChildren().remove(1);
         this.getChildren().add(towerUpgrade);
 
+    }
+
+    public void changeToShop() {
+        // TODO
     }
 }
 

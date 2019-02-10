@@ -50,7 +50,9 @@ public class GameField extends Canvas {
 
     private Shop gameShop;
 
-    public boolean showRanges;
+    private Debugger towerSelected;
+
+    public static boolean showRanges;
 
     public GameField() {
         super(WIDTH, HEIGHT);
@@ -122,6 +124,10 @@ public class GameField extends Canvas {
         });
         bugs.forEach(b -> b.draw(g));
 
+        if(towerSelected != null) {
+            drawCircle(g, Color.GRAY, towerSelected.pos, towerSelected.range);
+        }
+
         if(drawCircle) {
             drawCircle(g, Color.GRAY, circlePos, circleRange);
 
@@ -170,6 +176,7 @@ public class GameField extends Canvas {
 
         } else {
             drawCircle = false;
+            towerSelectedStuff(e);
         }
     }
 
@@ -199,11 +206,21 @@ public class GameField extends Canvas {
             // if not in debugger mode, then select a tower (or you want to squash bugs)
 
             // get selected object
-            for(Debugger d : debuggers)
-                if(new Rectangle(d.pos.x - 3 / 2f, d.pos.y - 9, 3, 9).contains(pos.x, pos.y)) {
-                    gameShop.changeSelectedTower(d);
-                    break;
-                }
+            if(towerSelectedStuff(e))
+                gameShop.changeSelectedTower(towerSelected);
+            else gameShop.changeToShop(); // change to shop if clicked anywhere but a tower
         }
+    }
+
+    private boolean towerSelectedStuff(MouseEvent e) {
+        Pos pos = new Pos(e.getX(), e.getY());
+        towerSelected = null;
+        for(Debugger d : debuggers)
+            if(new Rectangle(d.pos.x - 3 / 2f, d.pos.y - 9, 3, 9).contains(pos.x, pos.y)) {
+                towerSelected = d;
+                return true;
+            }
+
+        return false;
     }
 }
