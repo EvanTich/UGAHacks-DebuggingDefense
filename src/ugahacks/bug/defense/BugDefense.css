@@ -5,5 +5,5 @@
     -fx-min-width: 50;
 }
 .hbox {
-    -fx-alignment:CENTER;
+    -fx-min-width: 320;
 }

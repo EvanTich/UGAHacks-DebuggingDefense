@@ -25,8 +25,11 @@ public class GameField extends Canvas {
     public static final double HEIGHT = 480 / 2f;
 
     public static final Path mainPath = Path.createPath(
-            new Pos(0, HEIGHT / 2), new Pos(WIDTH / 10, HEIGHT / 2),
-            new Pos(WIDTH / 8, HEIGHT / 4), new Pos(WIDTH / 7, HEIGHT * 4 / 5)
+            new Pos(0, HEIGHT * .5), new Pos(WIDTH * .1, HEIGHT * .5),
+            new Pos(WIDTH * .125, HEIGHT * .25), new Pos(WIDTH * .15, HEIGHT * .8),
+            new Pos(WIDTH * .3, HEIGHT * .8), new Pos(WIDTH * .3, HEIGHT * .25),
+            new Pos(WIDTH * .5, HEIGHT * .65), new Pos(WIDTH * .7, HEIGHT * .65),
+            new Pos(WIDTH * .85, HEIGHT * .4), new Pos(WIDTH, HEIGHT / 2)
     );
 
     private AnimationTimer gameLoop;
