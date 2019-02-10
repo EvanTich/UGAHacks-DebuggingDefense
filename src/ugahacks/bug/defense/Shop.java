@@ -12,7 +12,13 @@ import ugahacks.bug.defense.field.Debugger;
 import ugahacks.bug.defense.field.GameField;
 
 public class Shop extends VBox{
+
+    private VBox sftwreShp;
+    private Stage mainStage;
+
     Shop(Stage mainStage, GameField game) {
+
+        this.mainStage = mainStage;
 
         this.setMaxWidth(160);
 
@@ -88,6 +94,12 @@ public class Shop extends VBox{
             mainStage.sizeToScene();});
     }
 
+    public void returnToShop(){
+        {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
+            this.getChildren().add(sftwreShp);
+            mainStage.sizeToScene();}
+    }
+
     public void changeSelectedTower(Debugger tower) {
         String towerType = "";
         switch(tower.id) {
@@ -110,6 +122,9 @@ public class Shop extends VBox{
         HBox currentInfo = new HBox(towerName, stats);
 
         Button upgrade = new Button("UpGrade");
+        upgrade.setOnAction(e -> {
+
+        });
         Button uninstall = new Button("Uninstall");
         VBox towerOptions = new VBox(upgrade, uninstall);
 

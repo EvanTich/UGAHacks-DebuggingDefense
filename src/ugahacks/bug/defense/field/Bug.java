@@ -1,10 +1,14 @@
 package ugahacks.bug.defense.field;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
 
 public class Bug {
+
+    //Bug Images
+    private final Image BUG1 = new Image("ugahacks/UGAHacksAssets/Bug1.png");
 
     Pos pos;
     int hp;
