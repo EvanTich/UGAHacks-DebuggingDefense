@@ -208,7 +208,7 @@ public class GameField extends Canvas {
             // get selected object
             if(towerSelectedStuff(e))
                 gameShop.changeSelectedTower(towerSelected);
-            else gameShop.changeToShop(); // change to shop if clicked anywhere but a tower
+            else gameShop.returnToShop(); // change to shop if clicked anywhere but a tower
         }
     }
 
