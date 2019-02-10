@@ -78,11 +78,13 @@ public class Debugger {
             speed = GDB.speed;
             range = GDB.range;
             damage = GDB.damage;
+            id = GDB.id;
         } else if(range == GDB.range) {
             // upgrade to ULT
             speed = ULT.speed;
             range = ULT.range;
             damage = ULT.damage;
+            id = ULT.id;
         }
     }
 
