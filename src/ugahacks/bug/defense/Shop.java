@@ -130,7 +130,7 @@ public class Shop extends VBox{
         VBox stats = new VBox(dmgStat, rangeStat, rofStat);
         HBox currentInfo = new HBox(towerName, stats);
 
-        Button upgrade = new Button("UpGrade");
+        Button upgrade = new Button("Upgrade");
         upgrade.setOnAction(e -> {
             tower.upgrade();
         });
