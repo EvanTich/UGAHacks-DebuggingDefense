@@ -16,6 +16,7 @@ public class Shop extends VBox{
 
     private VBox softwareShop;
     private Stage mainStage;
+    private GameField game;
 
     public Debugger selectedTower;
 
@@ -23,6 +24,7 @@ public class Shop extends VBox{
     Shop(Stage mainStage, GameField game) {
 
         this.mainStage = mainStage;
+        this.game = game;
 
         this.setMaxWidth(160);
 
@@ -141,13 +143,13 @@ public class Shop extends VBox{
         VBox stats = new VBox(dmgStat, rangeStat, rofStat);
         HBox currentInfo = new HBox(towerName, stats);
 
-        Button upgrade = new Button("UpGrade");
+        Button upgrade = new Button("Upgrade");
         upgrade.setOnAction(e -> {
             tower.upgrade();
         });
         Button uninstall = new Button("Uninstall");
         uninstall.setOnAction(e -> {
-            
+            game.debuggers.remove(tower);
         });
         VBox towerOptions = new VBox(upgrade, uninstall);
 
