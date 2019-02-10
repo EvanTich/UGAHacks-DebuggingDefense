@@ -83,7 +83,7 @@ public class TowerDefenseGame extends Application {
         BorderPane gamePane = new BorderPane();
         Scene playing = new Scene(gamePane);
         GameField game = new GameField();
-        gamePane.setCenter(game);
+        gamePane.setLeft(game);
 
         Shop shop = new Shop(mainStage, game);
         game.setShop(shop);
