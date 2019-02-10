@@ -49,6 +49,8 @@ public class GameField extends Canvas {
 
     private Shop gameShop;
 
+    public boolean showRanges;
+
     public GameField() {
         super(WIDTH, HEIGHT);
         paused = new SimpleBooleanProperty(true);
@@ -78,6 +80,8 @@ public class GameField extends Canvas {
         mainPathLines = Path.toLine2DArray(mainPath);
         debuggers = new ArrayList<>();
         bugs = new ArrayList<>();
+
+        showRanges = false;
     }
 
     public void pause() {
@@ -103,18 +107,28 @@ public class GameField extends Canvas {
             current = current.nextPath;
         }
 
-        debuggers.forEach(d -> d.draw(g));
+        debuggers.forEach(d -> {
+            d.draw(g);
+
+            if(showRanges) {
+                drawCircle(g, Color.GRAY, d.pos, d.range);
+            }
+        });
         bugs.forEach(b -> b.draw(g));
 
         if(drawCircle) {
-            // draw circle maaan
-            g.setStroke(Color.GRAY);
-            g.strokeOval(circlePos.x - circleRange / 2f, circlePos.y - circleRange / 2f, circleRange, circleRange);
+            drawCircle(g, Color.GRAY, circlePos, circleRange);
 
             // draw tower too
             g.setFill(towerToPlace == 0 ? Color.RED : towerToPlace == 1 ? Color.BLUE : Color.PURPLE);
             g.fillRect(circlePos.x - 3 / 2f, circlePos.y - 9, 3, 9);
         }
+    }
+
+    private void drawCircle(GraphicsContext g, Color color, Pos pos, double radius) {
+        // draw circle maaan
+        g.setStroke(color);
+        g.strokeOval(pos.x - radius, pos.y - radius, radius * 2, radius * 2);
     }
 
     /**
@@ -168,10 +182,10 @@ public class GameField extends Canvas {
                         canPlace = false;
 
                 if(canPlace) {
+                    TowerDefenseGame.memory.set(TowerDefenseGame.memory.get() - cost);
                     debuggers.add(Debugger.makeDebugger(pos, towerToPlace));
                     buyMode = false;
-                    TowerDefenseGame.memory.subtract(cost);
-
+                    drawCircle = false;
                 }
             }
         } else {
