@@ -97,6 +97,9 @@ public class TowerDefenseGame extends Application {
         resources.setAlignment(Pos.CENTER);
         resources.setSpacing(5);
         resources.setMaxWidth(160);
+        quit.setLayoutX(0);
+        quit.setLayoutY(0);
+        hackerBoiGroup.getChildren().add(quit);
         HBox BotDisp = new HBox(hackerBoiGroup, resources);
         gamePane.setBottom(BotDisp);
         game.play();
