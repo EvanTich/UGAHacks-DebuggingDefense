@@ -130,7 +130,9 @@ public class Shop extends VBox{
 
         Button upgrade = new Button("UpGrade");
         upgrade.setOnAction(e -> {
+            // check if we have enough memory
             tower.upgrade();
+            changeSelectedTower(tower);
         });
         Button uninstall = new Button("Uninstall");
         uninstall.setOnAction(e -> {

@@ -3,6 +3,7 @@ package ugahacks.bug.defense.field;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import ugahacks.bug.defense.Pos;
+import ugahacks.bug.defense.TowerDefenseGame;
 
 import java.util.List;
 
@@ -79,12 +80,14 @@ public class Debugger {
             range = GDB.range;
             damage = GDB.damage;
             id = GDB.id;
+            TowerDefenseGame.memory.set(TowerDefenseGame.memory.get() - 4);
         } else if(range == GDB.range) {
             // upgrade to ULT
             speed = ULT.speed;
             range = ULT.range;
             damage = ULT.damage;
             id = ULT.id;
+            TowerDefenseGame.memory.set(TowerDefenseGame.memory.get() - 8);
         }
     }
 
