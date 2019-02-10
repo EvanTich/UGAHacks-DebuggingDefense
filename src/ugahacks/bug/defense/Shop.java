@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ugahacks.bug.defense.field.Debugger;
 import ugahacks.bug.defense.field.GameField;
@@ -14,7 +13,7 @@ import ugahacks.bug.defense.field.GameField;
 public class Shop extends VBox{
 
 
-    private VBox sftwreShp;
+    private VBox softwareShop;
     private Stage mainStage;
 
     public Debugger selectedTower;
@@ -74,11 +73,11 @@ public class Shop extends VBox{
         tower3.setAlignment(Pos.CENTER_LEFT);
         tower3Mem.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox sftwreShp = new VBox(softwareTitles, twr1, twr2, twr3);
-        sftwreShp.setSpacing(2.5);
-        sftwreShp.setAlignment(Pos.CENTER_LEFT);
+        softwareShop = new VBox(softwareTitles, twr1, twr2, twr3);
+        softwareShop.setSpacing(2.5);
+        softwareShop.setAlignment(Pos.CENTER_LEFT);
         softwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
-            this.getChildren().add(sftwreShp);
+            this.getChildren().add(softwareShop);
             mainStage.sizeToScene();});
 
         //HardwareShop
@@ -99,9 +98,12 @@ public class Shop extends VBox{
     }
 
     public void returnToShop(){
-        {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
-            this.getChildren().add(sftwreShp);
-            mainStage.sizeToScene();}
+        if(this.getChildren().size() > 1) {
+            this.getChildren().remove(1);
+        }
+
+        this.getChildren().add(softwareShop);
+        mainStage.sizeToScene();
     }
 
     public void changeSelectedTower(Debugger tower) {
@@ -137,10 +139,6 @@ public class Shop extends VBox{
         this.getChildren().remove(1);
         this.getChildren().add(towerUpgrade);
 
-    }
-
-    public void changeToShop() {
-        // TODO
     }
 }
 
