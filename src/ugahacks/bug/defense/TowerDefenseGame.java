@@ -54,6 +54,10 @@ public class TowerDefenseGame extends Application {
         startGame.setOnAction(e -> mainStage.setScene(createPlay()));
         startGame.setLayoutX(290);
         startGame.setLayoutY(400);
+        Button credits = new Button("Credits");
+        credits.setOnAction(e -> {
+
+        });
         errorField.getChildren().add(startGame);
         Scene startScene = new Scene(errorField);
         return startScene;
