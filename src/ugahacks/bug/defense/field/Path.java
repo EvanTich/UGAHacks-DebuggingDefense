@@ -26,7 +26,7 @@ public class Path {
         bug.pos.x += (end.x - start.x) * speed * dt / 100;
         bug.pos.y += (end.y - start.y) * speed * dt / 100;
 
-        if(Math.abs(bug.pos.x - end.x) < .5 && Math.abs(bug.pos.x - end.x) < .5) { // if it is past the end or at the end, change to the next path
+        if(Math.abs(bug.pos.x - end.x) <= 3 && Math.abs(bug.pos.y - end.y) <= 3) { // if it is past the end or at the end, change to the next path
             bug.pos.x = bug.onPath.end.x;
             bug.pos.y = bug.onPath.end.y;
             bug.onPath = nextPath;
