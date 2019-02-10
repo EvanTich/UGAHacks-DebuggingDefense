@@ -10,7 +10,7 @@ It's a tower defense game, where you squash bugs and buy parts for your computer
 We used Java with JavaFX along side our favorite photo editing software, GIMP.
 
 ## Challenges we ran into
-GIMP sucks with opacity. We used [paint.net](www.getpaint.net) too.
+GIMP sucks with opacity. We used [paint.net](https://www.getpaint.net) too.
 
 ## Accomplishments that we're proud of
 We managed to actually finish an application in 36 hours.
