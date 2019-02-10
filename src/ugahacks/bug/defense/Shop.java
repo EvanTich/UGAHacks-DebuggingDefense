@@ -3,6 +3,7 @@ package ugahacks.bug.defense;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -95,6 +96,18 @@ public class Shop extends VBox{
         hardwareShopBut.setOnAction(e -> {if(this.getChildren().size() > 1) {this.getChildren().remove(1);}
             this.getChildren().add(hrdwreShp);
             mainStage.sizeToScene();});
+
+        //Tooltips for buttons
+        hardwareShopBut.setTooltip(new Tooltip("Upgrade your PC"));
+        softwareShopBut.setTooltip(new Tooltip("Add debuggers to fight off bugs"));
+
+        tower1.setTooltip(new Tooltip("Basic tower"));
+        tower2.setTooltip(new Tooltip("Mid-tier tower"));
+        tower3.setTooltip(new Tooltip("Top-tier tower"));
+
+        upGrade1.setTooltip(new Tooltip("Add more memory to allow placement of more debuggers"));
+        upGrade2.setTooltip(new Tooltip("Speed up your processor for more HP"));
+        upGrade3.setTooltip(new Tooltip("Upgrade your graphics to rake in more cash for debugging"));
     }
 
     public void returnToShop(){
@@ -138,6 +151,10 @@ public class Shop extends VBox{
         VBox towerUpgrade = new VBox(currentInfo, towerOptions);
         this.getChildren().remove(1);
         this.getChildren().add(towerUpgrade);
+
+        //Tooltip for tower buttons
+        upgrade.setTooltip(new Tooltip("Upgrade this debugger to the next tier"));
+        uninstall.setTooltip(new Tooltip("Scrap this debugger and regain RAM"));
 
     }
 }
