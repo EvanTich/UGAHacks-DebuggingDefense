@@ -11,7 +11,7 @@ public class Bug {
     private final Image BUG1 = new Image("ugahacks/UGAHacksAssets/Bug1.png");
     private final Image BUG2 = new Image("ugahacks/UGAHacksAssets/Bug2.png");
     private final Image BUG3 = new Image("ugahacks/UGAHacksAssets/Bug3.png");
-    
+
     Pos pos;
     int hp;
 
