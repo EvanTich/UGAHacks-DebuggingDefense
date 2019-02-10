@@ -37,7 +37,7 @@ public class GameField extends Canvas {
 
     private long lastNanoTime;
 
-    private List<Debugger> debuggers;
+    public List<Debugger> debuggers;
     private List<Bug> bugs;
     private Line2D[] mainPathLines;
 
