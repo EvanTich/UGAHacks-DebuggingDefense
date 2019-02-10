@@ -9,6 +9,7 @@ public class Bug {
 
     //Bug Images
     private final Image BUG1 = new Image("ugahacks/UGAHacksAssets/Bug1.png");
+    private final Image BUG2 = new Image("ugahacks/UGAHacksAssets/Bug2.png");
 
     Pos pos;
     int hp;
