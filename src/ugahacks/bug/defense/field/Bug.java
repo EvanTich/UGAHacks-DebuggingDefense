@@ -12,15 +12,25 @@ public class Bug {
     private final Image BUG2 = new Image("ugahacks/UGAHacksAssets/Bug2.png");
     private final Image BUG3 = new Image("ugahacks/UGAHacksAssets/Bug3.png");
 
+<<<<<<< HEAD
+=======
+    private final int WIDTH = 12;
+    private final int HEIGHT = 12;
+
+>>>>>>> 759337d77ffe66194fb2411e700ef27c46d19462
     Pos pos;
     int hp;
 
     Path onPath; // can be null, this doesnt move if null
 
-    public Bug(int hp, Path onPath) {
+    private byte type;
+
+    public Bug(int type, Path onPath) {
         pos = new Pos(onPath.start.x, onPath.start.y);
-        this.hp = hp;
+        this.type = (byte) type;
         this.onPath = onPath;
+
+        hp = type == 0 ? 50 : type == 1 ? 100 : 200;
     }
 
     public void move(double speed, double dt) {
@@ -30,6 +40,10 @@ public class Bug {
 
     public void draw(GraphicsContext g) {
         g.setFill(Color.GREEN);
-        g.fillRect(pos.x - 9 / 2f, pos.y - 9 / 2f, 9, 9);
+        g.drawImage(getImage(), pos.x - WIDTH / 2f, pos.y - HEIGHT / 2f, WIDTH, HEIGHT);
+    }
+
+    private Image getImage() {
+        return type == 0 ? BUG1 : type == 1 ? BUG2 : BUG3;
     }
 }

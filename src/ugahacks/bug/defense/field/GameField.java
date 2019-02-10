@@ -97,6 +97,7 @@ public class GameField extends Canvas {
 
     public void startWaves() {
         bugs.add(new Bug(100, mainPath));
+        // TODO
     }
 
     /**
