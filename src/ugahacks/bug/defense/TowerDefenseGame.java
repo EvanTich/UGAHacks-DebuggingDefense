@@ -65,9 +65,9 @@ public class TowerDefenseGame extends Application {
         credits.setOnAction(e -> {
             Stage creditStage = new Stage();
             VBox creators = new VBox();
-            Text evan = new Text("Evan Tichenor - Game Mechanics, Concept Design");
-            Text cody = new Text("Cody Moore - Supplemental Programming, Concept Design, Head Flag Capturer");
-            Text james = new Text("James Cannon - UI, Art, Concept Design");
+            Text evan = new Text("Evan Tichenor - Programming, Game Mechanics, Concept Design\n");
+            Text cody = new Text("Cody Moore - Programming, Supplemental Programming, Concept Design, Head Flag Capturer\n");
+            Text james = new Text("James Cannon - Programming, UI, Art, Concept Design");
             creators.getChildren().addAll(evan, cody, james);
             Scene creditScene = new Scene(creators);
             creditStage.setScene(creditScene);
