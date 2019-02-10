@@ -3,6 +3,9 @@
 }
 .button{
     -fx-min-width: 50;
+    -fx-background-color: #000000;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
 }
 .hbox {
     -fx-min-width: 320;

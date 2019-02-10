@@ -52,13 +52,26 @@ public class TowerDefenseGame extends Application {
         }
         Button startGame = new Button("Debug >0<");
         startGame.setOnAction(e -> mainStage.setScene(createPlay()));
-        startGame.setLayoutX(290);
+        startGame.setLayoutX(270);
         startGame.setLayoutY(400);
+        startGame.setMinSize(100,20);
         Button credits = new Button("Credits");
         credits.setOnAction(e -> {
-
+            Stage creditStage = new Stage();
+            VBox creators = new VBox();
+            Text evan = new Text("Evan Tichenor - Game Mechanics, Concept Design");
+            Text cody = new Text("Cody Moore - Supplemental Programming, Concept Design, Head Flag Capturer");
+            Text james = new Text("James Cannon - UI, Art, Concept Design");
+            creators.getChildren().addAll(evan, cody, james);
+            Scene creditScene = new Scene(creators);
+            creditStage.setScene(creditScene);
+            creditStage.setTitle("CREATORS");
+            creditStage.show();
         });
-        errorField.getChildren().add(startGame);
+        credits.setLayoutX(270);
+        credits.setLayoutY(435);
+        credits.setMinSize(100, 20);
+        errorField.getChildren().addAll(startGame, credits);
         Scene startScene = new Scene(errorField);
         return startScene;
     }
@@ -100,7 +113,7 @@ public class TowerDefenseGame extends Application {
         VBox resources = new VBox(memoryLbl, moneyLbl, healthLbl, nextWave);
         resources.setAlignment(Pos.CENTER);
         resources.setSpacing(5);
-        resources.setMaxWidth(160);
+        resources.setMinWidth(159);
         quit.setLayoutX(0);
         quit.setLayoutY(0);
         hackerBoiGroup.getChildren().add(quit);
