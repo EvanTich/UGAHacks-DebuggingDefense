@@ -1,4 +1,5 @@
-# UGAHacks - Debugging Defense
+# [UGAHacks - Debugging Defense](https://devpost.com/software/debugging-defense-8b06il)
+Won a prize for First Time Hacking
 
 ## Inspiration
 Games are fun, debugging is not. Here's a game about squashing virtual bugs.
